@@ -5,6 +5,9 @@ let side_menu_wrap = document.querySelector(".side_menu_wrap");
 let s_depth2_lists = document.querySelectorAll(".s_depth2 > li");
 let s_depth2_titles = document.querySelectorAll(".s_depth2_title");
 let btn_quick = document.querySelector(".btn_quick");
+let sec1 = document.querySelector(".section1");
+let sec2 = document.querySelector(".section2");
+let goTop = document.querySelector(".goTop");
 
 window.onresize = () => {
   if (window.innerWidth > 1024) {
@@ -14,12 +17,16 @@ window.onresize = () => {
 };
 
 window.onscroll = () => {
-  let sec2 = document.querySelector(".section2");
+  let sec1_bottom =
+    sec1.getBoundingClientRect().top + sec1.getBoundingClientRect().height;
   let sec2_height = sec2.getBoundingClientRect().top;
-  if (window.innerWidth > 1024) {
-    if (sec2_height < 100) sec2.classList.add("active");
-    else sec2.classList.remove("active");
+  if (window.innerWidth < 1024) {
+    if (sec1_bottom < 55) goTop.classList.add("active");
+    else goTop.classList.remove("active");
   }
+  if (sec2_height < sec2.getBoundingClientRect().height / 2)
+    sec2.classList.add("active");
+  else sec2.classList.remove("active");
 };
 
 nav.addEventListener("mouseenter", () => {
@@ -56,6 +63,10 @@ for (let btn_side of btn_sides) {
 btn_quick.addEventListener("click", () => {
   if (window.innerWidth < 1024)
     document.querySelector(".quick_menu").classList.toggle("hide");
+});
+
+goTop.addEventListener("click", () => {
+  document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 function clearActive(elements) {
