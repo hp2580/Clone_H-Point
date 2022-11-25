@@ -13,6 +13,15 @@ window.onresize = () => {
   }
 };
 
+window.onscroll = () => {
+  let sec2 = document.querySelector(".section2");
+  let sec2_height = sec2.getBoundingClientRect().top;
+  if (window.innerWidth > 1024) {
+    if (sec2_height < 100) sec2.classList.add("active");
+    else sec2.classList.remove("active");
+  }
+};
+
 nav.addEventListener("mouseenter", () => {
   nav_wrap.style.height = "560px";
 });
