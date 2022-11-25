@@ -4,6 +4,7 @@ let btn_sides = document.querySelectorAll(".btn_side");
 let side_menu_wrap = document.querySelector(".side_menu_wrap");
 let s_depth2_lists = document.querySelectorAll(".s_depth2 > li");
 let s_depth2_titles = document.querySelectorAll(".s_depth2_title");
+let btn_quick = document.querySelector(".btn_quick");
 
 window.onresize = () => {
   if (window.innerWidth > 1024) {
@@ -42,6 +43,11 @@ for (let btn_side of btn_sides) {
     }
   });
 }
+
+btn_quick.addEventListener("click", () => {
+  if (window.innerWidth < 1024)
+    document.querySelector(".quick_menu").classList.toggle("hide");
+});
 
 function clearActive(elements) {
   for (let element of elements) {
