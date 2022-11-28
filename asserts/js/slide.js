@@ -267,7 +267,6 @@ sec3_img_slide.addEventListener("transitionend", () => {
       sec3_img_slide.style.transition = ".3s ease";
     });
   }
-  // sec3_cnt = 0;
   transitionSec3 = true;
 });
 
@@ -325,7 +324,6 @@ function slide_Sec3() {
   for (let sec3_active of sec3_actives) {
     sec3_active.classList.add("active");
   }
-  console.log(sec3_index_user, sec3_index);
   sec3_img_slide.style.transform = `translateX(-${sec3_index * sec3_width}%)`;
 }
 
@@ -351,6 +349,135 @@ function autoPlay_Sec3() {
       sec3_index++;
       sec3_index_user = sec3_index_user < 8 ? sec3_index_user + 1 : 1;
       slide_Sec3();
+    }
+  }
+}
+
+/*Section4*/
+let sec4_slide_wrap = document.querySelector(".sec4_slide_wrap");
+let sec4_clone_first = document.querySelector(".sec4_slide1").cloneNode(true);
+let sec4_clone_first2 = document.querySelector(".sec4_slide2").cloneNode(true);
+let sec4_clone_last = document.querySelector(".sec4_slide6").cloneNode(true);
+let sec4_clone_last2 = document.querySelector(".sec4_slide5").cloneNode(true);
+let sec4_width;
+let sec4_index = 2;
+let sec4_index_user = 2;
+let sec4_control_auto = document.querySelector(".sec4_auto");
+let sec4_prevPoint = 0;
+let sec4_nextPoint = 0;
+let transitionSec4 = true;
+let sec4_cnt = 0;
+let sec4_interval;
+let sec4_autoplay;
+
+document.documentElement.style.setProperty(
+  "--sec4_percent",
+  `${(sec4_index_user / 2) * 33.33}%`
+);
+document.querySelector(".sec4_current").innerHTML = `${sec4_index_user / 2}`;
+sec4_slide_wrap.append(sec4_clone_first);
+sec4_slide_wrap.append(sec4_clone_first2);
+sec4_slide_wrap.prepend(sec4_clone_last);
+sec4_slide_wrap.prepend(sec4_clone_last2);
+sec4_width = 100 / sec4_slide_wrap.childElementCount;
+sec4_slide_wrap.style.transform = `translateX(-${sec4_width * 2}%)`;
+setTimeout(() => {
+  sec4_slide_wrap.style.transition = ".6s ease";
+  sec4_interval = setInterval(() => {
+    autoPlay_Sec4();
+  }, 1000);
+});
+
+sec4_slide_wrap.addEventListener("transitionend", () => {
+  console.log(sec4_index);
+  if (sec4_index === 8) {
+    sec4_slide_wrap.style.transition = "";
+    sec4_index = 2;
+    slide_Sec4();
+    setTimeout(() => {
+      sec4_slide_wrap.style.transition = ".6s ease";
+    });
+  } else if (sec4_index === 0) {
+    sec4_slide_wrap.style.transition = "";
+    sec4_index = 6;
+    slide_Sec4();
+    setTimeout(() => {
+      sec4_slide_wrap.style.transition = ".6s ease";
+    });
+  }
+  transitionSec4 = true;
+});
+
+sec4_slide_wrap.addEventListener("mousedown", ({ clientX }) => {
+  sec4_prevPoint = clientX;
+  sec4_cnt = 0;
+});
+
+sec4_slide_wrap.addEventListener("mouseup", ({ clientX }) => {
+  sec4_nextPoint = clientX;
+  let direction = sec4_nextPoint - sec4_prevPoint;
+  user_slide_Sec4(direction);
+});
+
+sec4_slide_wrap.addEventListener("touchstart", ({ changedTouches }) => {
+  sec4_prevPoint = changedTouches[0].clientX;
+});
+
+sec4_slide_wrap.addEventListener("touchend", ({ changedTouches }) => {
+  sec4_nextPoint = changedTouches[0].clientX;
+  let direction = sec4_nextPoint - sec4_prevPoint;
+  user_slide_Sec4(direction);
+});
+
+sec4_control_auto.addEventListener("click", () => {
+  if (sec4_autoplay) {
+    sec4_autoplay = false;
+    sec4_cnt = 0;
+    clearInterval(sec4_interval);
+    sec4_control_auto.classList.add("stop");
+  } else {
+    sec4_autoplay = true;
+    sec4_interval = setInterval(() => {
+      autoPlay_Sec4();
+    }, 1000);
+    sec4_control_auto.classList.remove("stop");
+  }
+});
+
+function slide_Sec4() {
+  transitionSec4 = false;
+  document.documentElement.style.setProperty(
+    "--sec4_percent",
+    `${Math.floor(sec4_index_user / 2) * 33.33}%`
+  );
+  document.querySelector(".sec4_current").innerHTML = `${Math.floor(
+    sec4_index_user / 2
+  )}`;
+  sec4_slide_wrap.style.transform = `translateX(-${sec4_index * sec4_width}%)`;
+}
+
+function user_slide_Sec4(direction) {
+  if (transitionSec4) {
+    if (direction > 20) {
+      sec4_index -= 2;
+      sec4_index_user = sec4_index_user > 2 ? sec4_index_user - 2 : 6;
+    } else if (direction < -20) {
+      sec4_index += 2;
+      sec4_index_user = sec4_index_user < 6 ? sec4_index_user + 2 : 2;
+    }
+    slide_Sec4();
+  }
+}
+
+function autoPlay_Sec4() {
+  sec4_autoplay = true;
+  if (transitionSec4) {
+    sec4_cnt++;
+    if (sec4_cnt > 3) {
+      sec4_cnt = 0;
+      sec4_index += 2;
+      sec4_index_user = sec4_index_user < 6 ? sec4_index_user + 2 : 2;
+      slide_Sec4();
     }
   }
 }
