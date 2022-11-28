@@ -10,6 +10,19 @@ let sec2 = document.querySelector(".section2");
 let goTop = document.querySelector(".goTop");
 let sec3_tags = document.querySelectorAll(".sec3_tags");
 
+let upper768;
+let lower768;
+
+window.onload = () => {
+  if (window.innerWidth > 768) {
+    upper768 = true;
+    lower768 = true;
+  } else {
+    upper768 = false;
+    lower768 = false;
+  }
+};
+
 window.onresize = () => {
   if (window.innerWidth > 1024) {
     clearActive(btn_sides);
@@ -21,6 +34,31 @@ window.onresize = () => {
         autoPlay_Sec3();
       }, 1000);
       sec3_control_auto.classList.remove("stop");
+    }
+    if (upper768 == false) {
+      upper768 = true;
+      lower768 = false;
+      console.log(`upper768`);
+      sec4_index = Math.floor(sec4_index / 2) * 2;
+      sec4_index_user = Math.floor(sec4_index_user / 2) * 2;
+      document.documentElement.style.setProperty(
+        "--sec4_percent",
+        `${(sec4_index_user / 2) * 33.33}%`
+      );
+      document.querySelector(".sec4_amount").innerHTML = `3`;
+      slide_Sec4();
+    }
+  } else if (window.innerWidth <= 768) {
+    if (lower768 == false) {
+      console.log("down 768");
+      lower768 = true;
+      upper768 = false;
+      document.documentElement.style.setProperty(
+        "--sec4_percent",
+        `${(sec4_index_user - 1) * 16.67}%`
+      );
+      document.querySelector(".sec4_amount").innerHTML = `6`;
+      slide_Sec4();
     }
   }
 };
@@ -129,6 +167,42 @@ document.querySelector(".sec3_tag8").addEventListener("click", () => {
   sec3_cnt = 0;
   slide_Sec3();
 });
+
+document
+  .querySelector(".sec4_slide1 .img_wrap")
+  .addEventListener("mouseenter", () => {
+    document.querySelector(".section4").style.background = `rgba(126,207,244)`;
+  });
+document
+  .querySelector(".sec4_slide2 .img_wrap")
+  .addEventListener("mouseenter", () => {
+    document.querySelector(".section4").style.background = `rgba(127,175,247)`;
+  });
+document
+  .querySelector(".sec4_slide3 .img_wrap")
+  .addEventListener("mouseenter", () => {
+    document.querySelector(".section4").style.background = `rgba(185,164,245)`;
+  });
+document
+  .querySelector(".sec4_slide4 .img_wrap")
+  .addEventListener("mouseenter", () => {
+    document.querySelector(".section4").style.background = `rgba(232,173,245)`;
+  });
+document
+  .querySelector(".sec4_slide5 .img_wrap")
+  .addEventListener("mouseenter", () => {
+    document.querySelector(".section4").style.background = `rgba(237,171,207)`;
+  });
+document
+  .querySelector(".sec4_slide6 .img_wrap")
+  .addEventListener("mouseenter", () => {
+    document.querySelector(".section4").style.background = `rgba(244,179,179)`;
+  });
+for (let slide of document.querySelectorAll(".sec4_slide .img_wrap")) {
+  slide.addEventListener("mouseleave", () => {
+    document.querySelector(".section4").style.background = `rgba(92,205,181)`;
+  });
+}
 
 function clearActive(elements) {
   for (let element of elements) {

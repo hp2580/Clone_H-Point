@@ -370,10 +370,19 @@ let sec4_cnt = 0;
 let sec4_interval;
 let sec4_autoplay;
 
-document.documentElement.style.setProperty(
-  "--sec4_percent",
-  `${(sec4_index_user / 2) * 33.33}%`
-);
+if (window.innerWidth > 768) {
+  document.documentElement.style.setProperty(
+    "--sec4_percent",
+    `${(sec4_index_user / 2) * 33.33}%`
+  );
+  document.querySelector(".sec4_amount").innerHTML = `3`;
+} else {
+  document.documentElement.style.setProperty(
+    "--sec4_percent",
+    `${(sec4_index_user - 1) * 16.67}%`
+  );
+  document.querySelector(".sec4_amount").innerHTML = `6`;
+}
 document.querySelector(".sec4_current").innerHTML = `${sec4_index_user / 2}`;
 sec4_slide_wrap.append(sec4_clone_first);
 sec4_slide_wrap.append(sec4_clone_first2);
@@ -389,7 +398,6 @@ setTimeout(() => {
 });
 
 sec4_slide_wrap.addEventListener("transitionend", () => {
-  console.log(sec4_index);
   if (sec4_index === 8) {
     sec4_slide_wrap.style.transition = "";
     sec4_index = 2;
@@ -444,26 +452,52 @@ sec4_control_auto.addEventListener("click", () => {
   }
 });
 
+for (let link of document.querySelectorAll(".sec4_slide a")) {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+  });
+}
+
 function slide_Sec4() {
   transitionSec4 = false;
-  document.documentElement.style.setProperty(
-    "--sec4_percent",
-    `${Math.floor(sec4_index_user / 2) * 33.33}%`
-  );
-  document.querySelector(".sec4_current").innerHTML = `${Math.floor(
-    sec4_index_user / 2
-  )}`;
+  if (window.innerWidth > 768) {
+    document.documentElement.style.setProperty(
+      "--sec4_percent",
+      `${Math.floor(sec4_index_user / 2) * 33.33}%`
+    );
+    document.querySelector(".sec4_current").innerHTML = `${Math.floor(
+      sec4_index_user / 2
+    )}`;
+  } else {
+    document.documentElement.style.setProperty(
+      "--sec4_percent",
+      `${(sec4_index_user - 1) * 16.67}%`
+    );
+    document.querySelector(".sec4_current").innerHTML = `${
+      sec4_index_user - 1
+    }`;
+  }
   sec4_slide_wrap.style.transform = `translateX(-${sec4_index * sec4_width}%)`;
 }
 
 function user_slide_Sec4(direction) {
   if (transitionSec4) {
     if (direction > 20) {
-      sec4_index -= 2;
-      sec4_index_user = sec4_index_user > 2 ? sec4_index_user - 2 : 6;
+      if (window.innerWidth > 768) {
+        sec4_index -= 2;
+        sec4_index_user = sec4_index_user > 2 ? sec4_index_user - 2 : 6;
+      } else {
+        sec4_index -= 1;
+        sec4_index_user = sec4_index_user > 2 ? sec4_index_user - 1 : 7;
+      }
     } else if (direction < -20) {
-      sec4_index += 2;
-      sec4_index_user = sec4_index_user < 6 ? sec4_index_user + 2 : 2;
+      if (window.innerWidth > 768) {
+        sec4_index += 2;
+        sec4_index_user = sec4_index_user < 6 ? sec4_index_user + 2 : 2;
+      } else {
+        sec4_index += 1;
+        sec4_index_user = sec4_index_user < 7 ? sec4_index_user + 1 : 2;
+      }
     }
     slide_Sec4();
   }
@@ -475,8 +509,13 @@ function autoPlay_Sec4() {
     sec4_cnt++;
     if (sec4_cnt > 3) {
       sec4_cnt = 0;
-      sec4_index += 2;
-      sec4_index_user = sec4_index_user < 6 ? sec4_index_user + 2 : 2;
+      if (window.innerWidth > 768) {
+        sec4_index += 2;
+        sec4_index_user = sec4_index_user < 6 ? sec4_index_user + 2 : 2;
+      } else {
+        sec4_index += 1;
+        sec4_index_user = sec4_index_user < 7 ? sec4_index_user + 1 : 2;
+      }
       slide_Sec4();
     }
   }

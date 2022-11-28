@@ -1448,6 +1448,61 @@ header {
     width: 100%;
     height: 100%;
   }
+
+  /*Section4*/
+  .section4 {
+    padding: 70px 0;
+  }
+
+  .sec4_control {
+    justify-content: flex-start;
+    gap: 0 15px;
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: 20px;
+  }
+
+  .sec4_title h1 {
+    font-size: 1.75em;
+    letter-spacing: -1px;
+    padding: 0 0 40px 30px;
+  }
+
+  .sec4_slide_wrap {
+    width: 1000%;
+  }
+
+  .sec4_slide .img_wrap {
+    transition: 0.5s;
+  }
+
+  .sec4_slide.sec4_slide6 .img_wrap {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .sec4_slide.sec4_slide6 .img_wrap h2 {
+    font-size: 1.1em;
+  }
+
+  .sec4_slide6 span {
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: #fff;
+    position: relative;
+  }
+
+  .sec4_slide .img_wrap:hover {
+    transform: translateY(0);
+  }
+
+  .sec4_slide .text_wrap {
+    font-size: 1.25em;
+    text-align: left;
+    padding-top: 20px;
+  }
 }
 
 @media screen and (max-width: 480px) {
