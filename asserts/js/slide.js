@@ -215,3 +215,142 @@ function autoPlay_Sec1() {
     }
   }
 }
+
+/*Sectoin3*/
+let sec3_text_slide = document.querySelector(".sec3_text_wrap");
+let sec3_img_slide = document.querySelector(".sec3_slide_wrap");
+let sec3_clone_first;
+let sec3_clone_last;
+let sec3_width;
+let sec3_control_auto = document.querySelector(".sec3_auto");
+let sec3_prevPoint = 0;
+let sec3_nextPoint = 0;
+let transitionSec3 = true;
+let sec3_cnt = 0;
+let sec3_interval;
+let sec3_autoplay;
+
+document.documentElement.style.setProperty(
+  "--sec3_percent",
+  `${sec3_index_user * 12.5}%`
+);
+document.querySelector(".sec3_current").innerHTML = `${sec3_index_user}`;
+sec3_tags[0].classList.add("active");
+sec3_text_slide.firstElementChild.classList.add("active");
+sec3_img_slide.firstElementChild.classList.add("active");
+sec3_clone_first = sec3_img_slide.firstElementChild.cloneNode(true);
+sec3_clone_last = sec3_img_slide.lastElementChild.cloneNode(true);
+sec3_img_slide.append(sec3_clone_first);
+sec3_img_slide.prepend(sec3_clone_last);
+sec3_width = 100 / sec3_img_slide.childElementCount;
+sec3_img_slide.style.transform = `translateX(-${sec3_width}%)`;
+setTimeout(() => {
+  sec3_img_slide.style.transition = ".3s ease";
+  sec3_interval = setInterval(() => {
+    autoPlay_Sec3();
+  }, 1000);
+});
+
+sec3_img_slide.addEventListener("transitionend", () => {
+  if (sec3_index === 9) {
+    sec3_img_slide.style.transition = "";
+    sec3_index = 1;
+    slide_Sec3();
+    setTimeout(() => {
+      sec3_img_slide.style.transition = ".3s ease";
+    });
+  } else if (sec3_index === 0) {
+    sec3_img_slide.style.transition = "";
+    sec3_index = 8;
+    slide_Sec3();
+    setTimeout(() => {
+      sec3_img_slide.style.transition = ".3s ease";
+    });
+  }
+  // sec3_cnt = 0;
+  transitionSec3 = true;
+});
+
+sec3_img_slide.addEventListener("mousedown", ({ clientX }) => {
+  sec3_prevPoint = clientX;
+  sec3_cnt = 0;
+});
+
+sec3_img_slide.addEventListener("mouseup", ({ clientX }) => {
+  sec3_nextPoint = clientX;
+  let direction = sec3_nextPoint - sec3_prevPoint;
+  user_slide_Sec3(direction);
+});
+
+sec3_img_slide.addEventListener("touchstart", ({ changedTouches }) => {
+  sec3_prevPoint = changedTouches[0].clientX;
+});
+
+sec3_img_slide.addEventListener("touchend", ({ changedTouches }) => {
+  sec3_nextPoint = changedTouches[0].clientX;
+  let direction = sec3_nextPoint - sec3_prevPoint;
+  user_slide_Sec3(direction);
+});
+
+sec3_control_auto.addEventListener("click", () => {
+  if (sec3_autoplay) {
+    sec3_autoplay = false;
+    sec3_cnt = 0;
+    clearInterval(sec3_interval);
+    sec3_control_auto.classList.add("stop");
+  } else {
+    sec3_autoplay = true;
+    sec3_interval = setInterval(() => {
+      autoPlay_Sec3();
+    }, 1000);
+    sec3_control_auto.classList.remove("stop");
+  }
+});
+
+function slide_Sec3() {
+  transitionSec3 = false;
+  clearActive(sec3_tags);
+  clearActive(document.querySelectorAll(".sec3_text_wrap li"));
+  clearActive(document.querySelectorAll(".sec3_slide_wrap li"));
+  let sec3_actives = document.querySelectorAll(`.sec3_slide${sec3_index_user}`);
+  document.documentElement.style.setProperty(
+    "--sec3_percent",
+    `${sec3_index_user * 12.5}%`
+  );
+  document.querySelector(".sec3_current").innerHTML = `${sec3_index_user}`;
+  document.querySelector(`.sec3_tag${sec3_index_user}`).classList.add("active");
+  document
+    .querySelector(`.sec3_text${sec3_index_user}`)
+    .classList.add("active");
+  for (let sec3_active of sec3_actives) {
+    sec3_active.classList.add("active");
+  }
+  console.log(sec3_index_user, sec3_index);
+  sec3_img_slide.style.transform = `translateX(-${sec3_index * sec3_width}%)`;
+}
+
+function user_slide_Sec3(direction) {
+  if (transitionSec3) {
+    if (direction > 20) {
+      sec3_index--;
+      sec3_index_user = sec3_index_user > 1 ? sec3_index_user - 1 : 8;
+    } else if (direction < -20) {
+      sec3_index++;
+      sec3_index_user = sec3_index_user < 8 ? sec3_index_user + 1 : 1;
+    }
+    slide_Sec3();
+  }
+}
+
+function autoPlay_Sec3() {
+  sec3_autoplay = true;
+  if (transitionSec3) {
+    sec3_cnt++;
+    if (sec3_cnt > 3) {
+      sec3_cnt = 0;
+      sec3_index++;
+      sec3_index_user = sec3_index_user < 8 ? sec3_index_user + 1 : 1;
+      slide_Sec3();
+    }
+  }
+}
