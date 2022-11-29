@@ -1103,6 +1103,113 @@ header {
   color: #fff;
 }
 
+/*Section5*/
+.section5 {
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+.section5 dl {
+  padding-left: 30px;
+}
+
+.section5 h1 {
+  font-size: 3.25em;
+  letter-spacing: -5px;
+}
+
+.section5 dt {
+  margin-bottom: 30px;
+}
+
+.section5 dd {
+  display: inline-block;
+}
+
+.sec5_tags {
+  color: #aaa;
+  font-size: 1.125em;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-right: 20px;
+  padding-left: 15px;
+  position: relative;
+  cursor: pointer;
+}
+
+.sec5_tags.active {
+  color: #000;
+}
+
+.sec5_tags:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ccc;
+  transform: translateY(-50%);
+}
+
+.sec5_tags.active:before {
+  background: var(--purple2);
+}
+
+.sec5_content {
+  width: 150%;
+  height: auto;
+  min-height: 300px;
+  padding: 30px 0 30px 30px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sec5_content a {
+  display: block;
+  pointer-events: none;
+}
+
+.sec5_depth1 {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.sec5_depth1 > li {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 0;
+  transition: 0.3s;
+}
+
+.sec5_depth1 > li.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.sec5_depth2 {
+  display: flex;
+}
+
+.sec5_depth2 li {
+  flex: 1;
+  margin-right: 20px;
+  transition: 0.3s;
+}
+
+.sec5_depth2 li:hover {
+  transform: translateY(-10px);
+}
+
+.sec5_depth2 img {
+  width: 100%;
+  border-radius: 20px;
+}
+
 @media screen and (max-width: 1024px) {
   .container {
     padding: 0 20px;
@@ -1502,6 +1609,58 @@ header {
     font-size: 1.25em;
     text-align: left;
     padding-top: 20px;
+  }
+
+  /*Section5*/
+  .section5 {
+    padding: 50px 0;
+  }
+
+  .section5 dl {
+    padding-left: 20px;
+  }
+
+  .section5 h1 {
+    font-size: 1.75em;
+    letter-spacing: -2px;
+  }
+
+  .section5 dt {
+    margin-bottom: 20px;
+  }
+
+  .sec5_tags {
+    font-size: 0.9em;
+  }
+
+  .sec5_content {
+    width: 100%;
+    padding: 20px 0 20px 20px;
+  }
+
+  .sec5_depth1 {
+    width: 900%;
+    flex-direction: row;
+  }
+
+  .sec5_depth1 > li {
+    position: static;
+    top: auto;
+    left: auto;
+    opacity: 1;
+    transition: unset;
+  }
+
+  .sec5_depth2 {
+    flex-direction: column;
+  }
+
+  .sec5_depth2 li {
+    transition: unset;
+  }
+
+  .sec5_depth2 li:hover {
+    transform: translateY(0);
   }
 }
 

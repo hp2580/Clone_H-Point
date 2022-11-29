@@ -520,3 +520,148 @@ function autoPlay_Sec4() {
     }
   }
 }
+
+/*Section5*/
+let sec5_slide_active = document.querySelector(".sec5_depth1 > li.active");
+let sec5_prevPoint = 0;
+let sec5_nextPoint = 0;
+let sec5_index;
+let sec5_index_user;
+let transitionSec5 = true;
+
+sec5_tags[0].classList.add("active");
+
+for (let tag of sec5_tags) {
+  tag.addEventListener("click", () => {
+    let temp = tag.classList[1][tag.classList[1].length - 1] - 1;
+    clearActive(sec5_tags);
+    clearActive(sec5_slide);
+    tag.classList.add("active");
+    if (window.innerWidth > 768) {
+      sec5_index = 0;
+      sec5_slide[temp].classList.add("active");
+    } else {
+      sec5_index = temp + 1;
+      sec5_index_user = temp + 1;
+      slide_Sec5(sec5_slide_wrap);
+    }
+  });
+}
+
+for (let slide of sec5_slide) {
+  slide.addEventListener("mousedown", ({ clientX }) => {
+    sec5_prevPoint = clientX;
+  });
+
+  slide.addEventListener("mouseup", ({ clientX }) => {
+    sec5_nextPoint = clientX;
+    let direction = sec5_nextPoint - sec5_prevPoint;
+    if (window.innerWidth > 768) {
+      user_slide_Sec5(direction, slide);
+    }
+  });
+
+  slide.addEventListener("touchstart", ({ changedTouches }) => {
+    sec5_prevPoint = changedTouches[0].clientX;
+  });
+
+  slide.addEventListener("touchend", ({ changedTouches }) => {
+    sec5_nextPoint = changedTouches[0].clientX;
+    let direction = sec5_nextPoint - sec5_prevPoint;
+    if (window.innerWidth > 768) {
+      user_slide_Sec5(direction, slide);
+    }
+  });
+}
+
+for (let link of document.querySelectorAll(".sec5_depth2 a")) {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+  });
+}
+
+sec5_slide_wrap.addEventListener("transitionend", () => {
+  if (window.innerWidth <= 768) {
+    if (sec5_index === 8) {
+      sec5_slide_wrap.style.transition = "";
+      sec5_index = 1;
+      slide_Sec5(sec5_slide_wrap);
+      setTimeout(() => {
+        sec5_slide_wrap.style.transition = ".6s ease";
+      });
+    } else if (sec5_index === 0) {
+      sec5_slide_wrap.style.transition = "";
+      sec5_index = 7;
+      slide_Sec5(sec5_slide_wrap);
+      setTimeout(() => {
+        sec5_slide_wrap.style.transition = ".6s ease";
+      });
+    }
+    transitionSec5 = true;
+  }
+});
+
+sec5_slide_wrap.addEventListener("mousedown", ({ clientX }) => {
+  sec5_prevPoint = clientX;
+});
+
+sec5_slide_wrap.addEventListener("mouseup", ({ clientX }) => {
+  sec5_nextPoint = clientX;
+  let direction = sec5_nextPoint - sec5_prevPoint;
+  if (window.innerWidth <= 768) {
+    user_slide_Sec5(direction, sec5_slide_wrap);
+  }
+});
+
+sec5_slide_wrap.addEventListener("touchstart", ({ changedTouches }) => {
+  sec5_prevPoint = changedTouches[0].clientX;
+});
+
+sec5_slide_wrap.addEventListener("touchend", ({ changedTouches }) => {
+  sec5_nextPoint = changedTouches[0].clientX;
+  let direction = sec5_nextPoint - sec5_prevPoint;
+  if (window.innerWidth <= 768) {
+    user_slide_Sec5(direction, sec5_slide_wrap);
+  }
+});
+
+function slide_Sec5(obj) {
+  let moveWidth;
+  if (window.innerWidth > 768) {
+    moveWidth = 33.33;
+  } else {
+    transitionSec5 = false;
+    moveWidth = 100 / obj.childElementCount;
+    clearActive(sec5_tags);
+    sec5_tags[sec5_index_user - 1].classList.add("active");
+  }
+  console.log("a1: ", sec5_index, sec5_index_user, moveWidth, transitionSec5);
+  obj.style.transform = `translateX(-${sec5_index * moveWidth}%)`;
+}
+
+function user_slide_Sec5(direction, obj) {
+  if (window.innerWidth > 768) {
+    console.log("user upper 768");
+    if (direction > 20) {
+      sec5_index = sec5_index > 0 ? sec5_index - 1 : 0;
+    } else if (direction < -20) {
+      sec5_index = sec5_index < 1 ? sec5_index + 1 : 1;
+    }
+  } else {
+    if (transitionSec5) {
+      console.log("user lower 768");
+      if (direction > 20) {
+        sec5_index--;
+        // if (sec5_index_user > 1) sec5_index_user--;
+        // else sec5_index_user = 7;
+        sec5_index_user = sec5_index_user > 1 ? sec5_index_user - 1 : 7;
+      } else if (direction < -20) {
+        sec5_index++;
+        // if (sec5_index_user < 7) sec5_index_user++;
+        // else sec5_index_user = 1;
+        sec5_index_user = sec5_index_user < 7 ? sec5_index_user + 1 : 1;
+      }
+    }
+  }
+  slide_Sec5(obj);
+}
