@@ -1210,6 +1210,52 @@ header {
   border-radius: 20px;
 }
 
+/*Mid_Banner*/
+.mid_banner {
+  width: 100%;
+  overflow: hidden;
+}
+
+.mid_banner ul {
+  display: flex;
+  width: 500%;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.mid_banner li {
+  flex: 1;
+}
+
+.mid_banner a {
+  display: block;
+}
+
+.mid_banner img {
+  width: 100%;
+  height: 100%;
+}
+
+.mid_banner .pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0 20px;
+  padding: 20px 0;
+}
+
+.mid_banner .mid_page {
+  width: 12px;
+  height: 12px;
+  border-radius: 10px;
+  background: #ccc;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.mid_banner .mid_page.active {
+  background: var(--purple);
+}
+
 @media screen and (max-width: 1024px) {
   .container {
     padding: 0 20px;

@@ -52,6 +52,7 @@ slide_wrap.addEventListener("mouseup", ({ clientX }) => {
 
 slide_wrap.addEventListener("touchstart", ({ changedTouches }) => {
   b_prevPoint = changedTouches[0].clientX;
+  b_cnt = 0;
 });
 
 slide_wrap.addEventListener("touchend", ({ changedTouches }) => {
@@ -152,6 +153,7 @@ sec1_slide_wrap.addEventListener("mouseup", ({ clientX }) => {
 
 sec1_slide_wrap.addEventListener("touchstart", ({ changedTouches }) => {
   sec1_prevPoint = changedTouches[0].clientX;
+  sec1_cnt = 0;
 });
 
 sec1_slide_wrap.addEventListener("touchend", ({ changedTouches }) => {
@@ -283,6 +285,7 @@ sec3_img_slide.addEventListener("mouseup", ({ clientX }) => {
 
 sec3_img_slide.addEventListener("touchstart", ({ changedTouches }) => {
   sec3_prevPoint = changedTouches[0].clientX;
+  sec3_cnt = 0;
 });
 
 sec3_img_slide.addEventListener("touchend", ({ changedTouches }) => {
@@ -429,6 +432,7 @@ sec4_slide_wrap.addEventListener("mouseup", ({ clientX }) => {
 
 sec4_slide_wrap.addEventListener("touchstart", ({ changedTouches }) => {
   sec4_prevPoint = changedTouches[0].clientX;
+  sec4_cnt = 0;
 });
 
 sec4_slide_wrap.addEventListener("touchend", ({ changedTouches }) => {
@@ -664,4 +668,121 @@ function user_slide_Sec5(direction, obj) {
     }
   }
   slide_Sec5(obj);
+}
+
+/*Mid_Banner*/
+let mid_banner = document.querySelector(".mid_banner ul");
+let mid_pages = document.querySelectorAll(".mid_page");
+let mid_clone_first = mid_banner.firstElementChild.cloneNode(true);
+let mid_clone_last = mid_banner.lastElementChild.cloneNode(true);
+let mid_index = 1;
+let mid_index_user = 1;
+let mid_width = 0;
+let mid_prevPoint = 0;
+let mid_nextPoint = 0;
+let transitionMid = true;
+let mid_cnt = 0;
+let mid_interval;
+let mid_autoplay;
+
+mid_banner.append(mid_clone_first);
+mid_banner.prepend(mid_clone_last);
+mid_width = 100 / mid_banner.childElementCount;
+mid_banner.style.transform = `translateX(-${mid_index * mid_width}%)`;
+setTimeout(() => {
+  mid_banner.style.transition = ".3s ease";
+  mid_interval = setInterval(() => {
+    autoPlay_Mid();
+  }, 1000);
+  document.querySelector(`.mid_page${mid_index_user}`).classList.add("active");
+});
+
+mid_banner.addEventListener("transitionend", () => {
+  if (mid_index === 4) {
+    mid_banner.style.transition = "";
+    mid_index = 1;
+    slide_Mid();
+    setTimeout(() => {
+      mid_banner.style.transition = ".3s ease";
+    });
+  } else if (mid_index === 0) {
+    mid_banner.style.transition = "";
+    mid_index = 3;
+    slide_Mid();
+    setTimeout(() => {
+      mid_banner.style.transition = ".3s ease";
+    });
+  }
+  transitionMid = true;
+});
+
+mid_banner.addEventListener("mousedown", ({ clientX }) => {
+  mid_prevPoint = clientX;
+  mid_cnt = 0;
+});
+
+mid_banner.addEventListener("mouseup", ({ clientX }) => {
+  mid_nextPoint = clientX;
+  let direction = mid_nextPoint - mid_prevPoint;
+  user_slide_Mid(direction);
+});
+
+mid_banner.addEventListener("touchstart", ({ changedTouches }) => {
+  mid_prevPoint = changedTouches[0].clientX;
+  mid_cnt = 0;
+});
+
+mid_banner.addEventListener("touchend", ({ changedTouches }) => {
+  mid_nextPoint = changedTouches[0].clientX;
+  let direction = mid_nextPoint - mid_prevPoint;
+  user_slide_Mid(direction);
+});
+
+for (let page of mid_pages) {
+  page.addEventListener("click", () => {
+    let temp = page.classList[1][page.classList[1].length - 1];
+    // mid_index = temp;
+    // mid_index_user = temp;
+    // console.log(temp);
+    // slide_Mid();
+  });
+}
+
+for (let banner of document.querySelectorAll(".mid_banner a")) {
+  banner.addEventListener("click", (e) => {
+    e.preventDefault();
+  });
+}
+
+function slide_Mid() {
+  transitionMid = false;
+  clearActive(mid_pages);
+  document.querySelector(`.mid_page${mid_index_user}`).classList.add("active");
+  mid_banner.style.transform = `translateX(-${mid_index * mid_width}%)`;
+}
+
+function user_slide_Mid(direction) {
+  if (transitionMid) {
+    if (direction > 20) {
+      mid_index--;
+      mid_index_user = mid_index_user > 1 ? mid_index_user - 1 : 3;
+    } else if (direction < -20) {
+      mid_index++;
+      mid_index_user = mid_index_user < 3 ? mid_index_user + 1 : 1;
+    }
+    slide_Mid();
+  }
+}
+
+function autoPlay_Mid() {
+  mid_autoplay = true;
+  if (transitionMid) {
+    mid_cnt++;
+    if (mid_cnt > 3) {
+      mid_cnt = 0;
+      mid_index++;
+      mid_index_user = mid_index_user < 3 ? mid_index_user + 1 : 1;
+      slide_Mid();
+    }
+  }
 }
