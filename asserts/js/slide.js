@@ -741,10 +741,9 @@ mid_banner.addEventListener("touchend", ({ changedTouches }) => {
 for (let page of mid_pages) {
   page.addEventListener("click", () => {
     let temp = page.classList[1][page.classList[1].length - 1];
-    // mid_index = temp;
-    // mid_index_user = temp;
-    // console.log(temp);
-    // slide_Mid();
+    mid_index = temp;
+    mid_index_user = parseInt(temp);
+    slide_Mid();
   });
 }
 
