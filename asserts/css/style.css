@@ -1260,6 +1260,84 @@ header {
   background: var(--purple);
 }
 
+/*Section6*/
+.section6 {
+  padding: 100px 0;
+}
+
+.sec6_title {
+  display: flex;
+  align-items: baseline;
+  gap: 0 40px;
+  padding: 0 30px;
+}
+
+.sec6_title h1 {
+  font-size: 3.25em;
+  letter-spacing: -3px;
+}
+
+.sec6_title p {
+  font-size: 1.25em;
+  color: #333;
+}
+
+.sec6_slides {
+  display: flex;
+  width: 300%;
+  margin-top: 70px;
+}
+
+.sec6_slides li {
+  flex: 1;
+  position: relative;
+}
+
+.sec6_slides li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(../images/section6/bg_collect.png) no-repeat;
+  background-size: contain;
+  transform: scale(0);
+  transition: 0.3s 0.2s;
+}
+
+.sec6_slides li.active:before {
+  transform: scale(1);
+}
+
+.sec6_slides img {
+  transform: scale(0.5);
+  transition: 0.3s;
+}
+
+.sec6_slides li.active img {
+  transform: scale(0.85);
+}
+
+.sec6_slides .sec6_mobile {
+  display: none;
+}
+
+.sec6_slides h2 {
+  display: none;
+  text-align: center;
+  font-size: 1.875em;
+  letter-spacing: -2px;
+}
+
+.sec6_slides p {
+  display: none;
+  text-align: center;
+  font-size: 1.2em;
+  letter-spacing: -2px;
+  color: #999;
+}
+
 @media screen and (max-width: 1024px) {
   .container {
     padding: 0 20px;
@@ -1711,6 +1789,27 @@ header {
 
   .sec5_depth2 li:hover {
     transform: translateY(0);
+  }
+
+  /*Section6*/
+  .section6 {
+    padding: 50px 0;
+  }
+
+  .sec6_title {
+    display: block;
+    padding: 0 20px;
+  }
+
+  .sec6_title h1 {
+    font-size: 1.75em;
+    letter-spacing: 0;
+  }
+
+  .sec6_title p {
+    font-size: 0.875em;
+    margin-top: 10px;
+    color: #666;
   }
 }
 

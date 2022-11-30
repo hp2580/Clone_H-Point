@@ -785,3 +785,17 @@ function autoPlay_Mid() {
     }
   }
 }
+
+/*Section6*/
+let sec6_slide = document.querySelector(".sec6_slides");
+let sec6_clone_first = sec6_slide.firstElementChild.cloneNode(true);
+let sec6_clone_first2 =
+  sec6_slide.firstElementChild.nextElementSibling.cloneNode(true);
+let sec6_clone_last = sec6_slide.lastElementChild.cloneNode(true);
+let sec6_clone_last2 =
+  sec6_slide.lastElementChild.previousElementSibling.cloneNode(true);
+
+sec6_slide.append(sec6_clone_first);
+sec6_slide.append(sec6_clone_first2);
+sec6_slide.prepend(sec6_clone_last);
+sec6_slide.prepend(sec6_clone_last2);
