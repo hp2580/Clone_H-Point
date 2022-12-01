@@ -794,8 +794,112 @@ let sec6_clone_first2 =
 let sec6_clone_last = sec6_slide.lastElementChild.cloneNode(true);
 let sec6_clone_last2 =
   sec6_slide.lastElementChild.previousElementSibling.cloneNode(true);
+let sec6_width;
+let sec6_index = 1;
+let sec6_index_user = 1;
+let sec6_prevPoint = 0;
+let sec6_nextPoint = 0;
+let transitionSec6 = true;
+let sec6_cnt = 0;
+let sec6_interval;
+let sec6_autoplay;
 
+sec6_clone_first.classList = "";
+sec6_clone_first2.classList = "";
+sec6_clone_last.classList = "";
+sec6_clone_last2.classList = "";
 sec6_slide.append(sec6_clone_first);
 sec6_slide.append(sec6_clone_first2);
 sec6_slide.prepend(sec6_clone_last);
 sec6_slide.prepend(sec6_clone_last2);
+sec6_width = 100 / sec6_slide.childElementCount;
+sec6_slide.style.transform = `translateX(-${sec6_index * sec6_width}%)`;
+document.querySelector(`.sec6_slide${sec6_index_user}`).classList.add("active");
+setTimeout(() => {
+  sec6_slide.style.transition = ".6s ease";
+  sec6_interval = setInterval(() => {
+    autoPlay_Sec6();
+  }, 1000);
+});
+
+sec6_slide.addEventListener("transitionend", () => {
+  if (sec6_index === 6) {
+    sec6_slide.style.transition = "";
+    sec6_index = 1;
+    slide_Sec6();
+    setTimeout(() => {
+      sec6_slide.style.transition = ".6s ease";
+    });
+  } else if (sec6_index === 0) {
+    sec6_slide.style.transition = "";
+    sec6_index = 5;
+    slide_Sec6();
+    setTimeout(() => {
+      sec6_slide.style.transition = ".6s ease";
+    });
+  }
+  transitionSec6 = true;
+});
+
+sec6_slide.addEventListener("mousedown", ({ clientX }) => {
+  sec6_prevPoint = clientX;
+  sec6_cnt = 0;
+});
+
+sec6_slide.addEventListener("mouseup", ({ clientX }) => {
+  sec6_nextPoint = clientX;
+  let direction = sec6_nextPoint - sec6_prevPoint;
+  user_slide_Sec6(direction);
+});
+
+sec6_slide.addEventListener("touchstart", ({ changedTouches }) => {
+  sec6_prevPoint = changedTouches[0].clientX;
+  sec6_cnt = 0;
+});
+
+sec6_slide.addEventListener("touchend", ({ changedTouches }) => {
+  sec6_nextPoint = changedTouches[0].clientX;
+  let direction = sec6_nextPoint - sec6_prevPoint;
+  user_slide_Sec6(direction);
+});
+
+for (let slide of document.querySelectorAll(".sec6_slides li")) {
+  slide.addEventListener("click", (e) => {
+    e.preventDefault();
+  });
+}
+
+function slide_Sec6() {
+  transitionSec6 = false;
+  clearActive(document.querySelectorAll(".sec6_slides li"));
+  document
+    .querySelector(`.sec6_slide${sec6_index_user}`)
+    .classList.add("active");
+  sec6_slide.style.transform = `translateX(-${sec6_index * sec6_width}%)`;
+}
+
+function user_slide_Sec6(direction) {
+  if (transitionSec6) {
+    if (direction > 20) {
+      sec6_index -= 1;
+      sec6_index_user = sec6_index_user > 1 ? sec6_index_user - 1 : 5;
+    } else if (direction < -20) {
+      sec6_index += 1;
+      sec6_index_user = sec6_index_user < 5 ? sec6_index_user + 1 : 1;
+    }
+    slide_Sec6();
+  }
+}
+
+function autoPlay_Sec6() {
+  sec4_autoplay = true;
+  if (transitionSec6) {
+    sec6_cnt++;
+    if (sec6_cnt > 3) {
+      sec6_cnt = 0;
+      sec6_index += 1;
+      sec6_index_user = sec6_index_user < 5 ? sec6_index_user + 1 : 1;
+      slide_Sec6();
+    }
+  }
+}

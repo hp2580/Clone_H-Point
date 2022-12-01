@@ -22,11 +22,13 @@ window.onload = () => {
   if (window.innerWidth > 768) {
     upper768 = true;
     lower768 = false;
+    document.querySelector(".sec4_amount").innerHTML = `3`;
     sec5_index = 0;
     sec5_index_user = 0;
   } else {
     upper768 = false;
     lower768 = true;
+    document.querySelector(".sec4_amount").innerHTML = `6`;
     sec5_index = 1;
     sec5_index_user = 1;
     sec5_slide_wrap.append(sec5_clone_first);
@@ -76,6 +78,9 @@ window.onresize = () => {
       sec5_slide_wrap.firstElementChild.classList.add("active");
       sec5_slide_wrap.style.transition = "";
       sec5_slide_wrap.style.transform = `translateX(0)`;
+      sec6_interval = setInterval(() => {
+        autoPlay_Sec6();
+      }, 1000);
     }
   } else if (window.innerWidth <= 768) {
     if (lower768 == false) {
@@ -102,6 +107,11 @@ window.onresize = () => {
         sec5_slide_wrap.style.transition = ".6s ease";
         transitionSec5 = true;
       });
+      clearInterval(sec6_interval);
+      sec6_cnt = 0;
+      sec6_index = 1;
+      sec6_index_user = 1;
+      slide_Sec6();
     }
   }
 };
