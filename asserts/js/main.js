@@ -25,6 +25,11 @@ window.onload = () => {
     document.querySelector(".sec4_amount").innerHTML = `3`;
     sec5_index = 0;
     sec5_index_user = 0;
+    setTimeout(() => {
+      sec6_interval = setInterval(() => {
+        autoPlay_Sec6();
+      }, 1000);
+    });
   } else {
     upper768 = false;
     lower768 = true;
@@ -38,6 +43,20 @@ window.onload = () => {
     }%)`;
     setTimeout(() => {
       sec5_slide_wrap.style.transition = ".6s ease";
+    });
+    sec7_slide.append(sec7_clone_first);
+    sec7_slide.prepend(sec7_clone_last);
+    sec7_width = 100 / sec7_slide.childElementCount;
+    sec7_slide.style.transform = `translateX(-${sec7_width}%)`;
+    document
+      .querySelector(`.sec7_slide${sec7_index_user}`)
+      .classList.add("active");
+    setTimeout(() => {
+      sec7_slide.style.transition = ".6s ease";
+      sec7_interval = setInterval(() => {
+        sec7_autoplay = true;
+        autoPlay_Sec7();
+      }, 1000);
     });
   }
 };
@@ -81,6 +100,20 @@ window.onresize = () => {
       sec6_interval = setInterval(() => {
         autoPlay_Sec6();
       }, 1000);
+      sec7_index = 1;
+      sec7_index_user = 1;
+      sec7_cnt = 0;
+      clearInterval(sec7_interval);
+      document.querySelector(".sec7_auto").classList.remove("stop");
+      document.querySelector(".sec7_current").innerHTML = sec7_index_user;
+      document.documentElement.style.setProperty(
+        "--sec7_percent",
+        `${sec7_index_user * 33.33}%`
+      );
+      sec7_slide.removeChild(sec7_slide.firstElementChild);
+      sec7_slide.removeChild(sec7_slide.lastElementChild);
+      sec7_slide.style.transition = "";
+      sec7_slide.style.transform = `translateX(0)`;
     }
   } else if (window.innerWidth <= 768) {
     if (lower768 == false) {
@@ -112,6 +145,19 @@ window.onresize = () => {
       sec6_index = 1;
       sec6_index_user = 1;
       slide_Sec6();
+      sec7_slide.append(sec7_clone_first);
+      sec7_slide.prepend(sec7_clone_last);
+      sec7_width = 100 / sec7_slide.childElementCount;
+      sec7_slide.style.transform = `translateX(-${sec7_width}%)`;
+      document
+        .querySelector(`.sec7_slide${sec7_index_user}`)
+        .classList.add("active");
+      setTimeout(() => {
+        sec7_slide.style.transition = ".6s ease";
+        sec7_interval = setInterval(() => {
+          autoPlay_Sec7();
+        }, 1000);
+      });
     }
   }
 };
