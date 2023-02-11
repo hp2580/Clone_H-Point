@@ -915,6 +915,10 @@ header {
 }
 
 .sec3_text_wrap p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
   margin-top: 20px;
   color: #999;
   font-size: 1.125em;
@@ -1041,7 +1045,7 @@ header {
 }
 
 .sec4_slide .img_wrap {
-  transition: 0.5s;
+  /* transition: 0.5s; */
 }
 
 .sec4_slide.sec4_slide6 .img_wrap {
@@ -1081,11 +1085,6 @@ header {
 
 .sec4_slide6 span:after {
   transform: rotate(45deg);
-}
-
-.sec4_slide .img_wrap:hover {
-  filter: brightness(0.5);
-  transform: translateY(-20px);
 }
 
 .sec4_slide img {
@@ -1971,10 +1970,6 @@ footer {
 
   .sec4_slide_wrap {
     width: 1000%;
-  }
-
-  .sec4_slide .img_wrap {
-    transition: 0.5s;
   }
 
   .sec4_slide.sec4_slide6 .img_wrap {

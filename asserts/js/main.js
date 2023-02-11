@@ -218,90 +218,14 @@ goTop.addEventListener("click", () => {
 let sec3_index = 1;
 let sec3_index_user = 1;
 
-document.querySelector(".sec3_tag1").addEventListener("click", () => {
-  sec3_index_user = 1;
-  sec3_index = 1;
-  sec3_cnt = 0;
-  slide_Sec3();
-});
-document.querySelector(".sec3_tag2").addEventListener("click", () => {
-  sec3_index_user = 2;
-  sec3_index = 2;
-  sec3_cnt = 0;
-  slide_Sec3();
-});
-document.querySelector(".sec3_tag3").addEventListener("click", () => {
-  sec3_index_user = 3;
-  sec3_index = 3;
-  sec3_cnt = 0;
-  slide_Sec3();
-});
-document.querySelector(".sec3_tag4").addEventListener("click", () => {
-  sec3_index_user = 4;
-  sec3_index = 4;
-  sec3_cnt = 0;
-  slide_Sec3();
-});
-document.querySelector(".sec3_tag5").addEventListener("click", () => {
-  sec3_index_user = 5;
-  sec3_index = 5;
-  sec3_cnt = 0;
-  slide_Sec3();
-});
-document.querySelector(".sec3_tag6").addEventListener("click", () => {
-  sec3_index_user = 6;
-  sec3_index = 6;
-  sec3_cnt = 0;
-  slide_Sec3();
-});
-document.querySelector(".sec3_tag7").addEventListener("click", () => {
-  sec3_index_user = 7;
-  sec3_index = 7;
-  sec3_cnt = 0;
-  slide_Sec3();
-});
-document.querySelector(".sec3_tag8").addEventListener("click", () => {
-  sec3_index_user = 8;
-  sec3_index = 8;
-  sec3_cnt = 0;
-  slide_Sec3();
-});
-
-document
-  .querySelector(".sec4_slide1 .img_wrap")
-  .addEventListener("mouseenter", () => {
-    document.querySelector(".section4").style.background = `rgba(126,207,244)`;
+document.querySelectorAll(".sec3_tags").forEach((tag, idx) => {
+  tag.addEventListener("click", () => {
+    sec3_index_user = idx + 1;
+    sec3_index = idx + 1;
+    sec3_cnt = 0;
+    slide_Sec3();
   });
-document
-  .querySelector(".sec4_slide2 .img_wrap")
-  .addEventListener("mouseenter", () => {
-    document.querySelector(".section4").style.background = `rgba(127,175,247)`;
-  });
-document
-  .querySelector(".sec4_slide3 .img_wrap")
-  .addEventListener("mouseenter", () => {
-    document.querySelector(".section4").style.background = `rgba(185,164,245)`;
-  });
-document
-  .querySelector(".sec4_slide4 .img_wrap")
-  .addEventListener("mouseenter", () => {
-    document.querySelector(".section4").style.background = `rgba(232,173,245)`;
-  });
-document
-  .querySelector(".sec4_slide5 .img_wrap")
-  .addEventListener("mouseenter", () => {
-    document.querySelector(".section4").style.background = `rgba(237,171,207)`;
-  });
-document
-  .querySelector(".sec4_slide6 .img_wrap")
-  .addEventListener("mouseenter", () => {
-    document.querySelector(".section4").style.background = `rgba(244,179,179)`;
-  });
-for (let slide of document.querySelectorAll(".sec4_slide .img_wrap")) {
-  slide.addEventListener("mouseleave", () => {
-    document.querySelector(".section4").style.background = `rgba(92,205,181)`;
-  });
-}
+});
 
 function clearActive(elements) {
   for (let element of elements) {
