@@ -1,13 +1,15 @@
 /*side_menu Banner*/
-let slide_wrap = document.querySelector(".banner_bottom");
-let b_clone_first = slide_wrap.firstElementChild.cloneNode(true);
-let b_clone_last = slide_wrap.lastElementChild.cloneNode(true);
+const slide_wrap = document.querySelector(".banner_bottom");
+const b_clone_first = slide_wrap.firstElementChild.cloneNode(true);
+const b_clone_last = slide_wrap.lastElementChild.cloneNode(true);
 let b_prevPoint = 0;
 let b_nextPoint = 0;
 let b_index = 1;
 let transitionBanner = true;
 let b_cnt = 0;
 let b_interval;
+let b_move = false;
+let b_down = false;
 
 slide_wrap.append(b_clone_first);
 slide_wrap.prepend(b_clone_last);
@@ -17,6 +19,12 @@ setTimeout(() => {
   b_interval = setInterval(() => {
     autoPlay_Banner();
   }, 1000);
+});
+
+document.querySelectorAll(".banner_bottom a").forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+  });
 });
 
 slide_wrap.addEventListener("transitionend", () => {
@@ -37,17 +45,28 @@ slide_wrap.addEventListener("transitionend", () => {
   }
   b_cnt = 0;
   transitionBanner = true;
+  b_down = false;
 });
 
 slide_wrap.addEventListener("mousedown", ({ clientX }) => {
-  b_prevPoint = clientX;
-  b_cnt = 0;
+  if (!b_down) {
+    b_prevPoint = clientX;
+    b_cnt = 0;
+    b_down = true;
+  }
+});
+
+slide_wrap.addEventListener("mousemove", () => {
+  if (b_down) b_move = true;
 });
 
 slide_wrap.addEventListener("mouseup", ({ clientX }) => {
-  b_nextPoint = clientX;
-  let direction = b_nextPoint - b_prevPoint;
-  user_slide_Banner(direction);
+  if (b_move) {
+    b_move = false;
+    b_nextPoint = clientX;
+    let direction = b_nextPoint - b_prevPoint;
+    user_slide_Banner(direction);
+  }
 });
 
 slide_wrap.addEventListener("touchstart", ({ changedTouches }) => {
@@ -354,6 +373,8 @@ let transitionSec4 = true;
 let sec4_cnt = 0;
 let sec4_interval;
 let sec4_autoplay;
+let sec4_move = false;
+let sec4_down = false;
 
 if (window.innerWidth > 768) {
   document.documentElement.style.setProperty(
@@ -382,6 +403,13 @@ setTimeout(() => {
   }, 1000);
 });
 
+const handleMouseDownSec4 = (clientX) => {
+  console.log("down");
+  sec4_prevPoint = clientX;
+  sec4_cnt = 0;
+  sec4_down = true;
+};
+
 sec4_slide_wrap.addEventListener("transitionend", () => {
   if (window.innerWidth > 768) {
     if (sec4_index > 7) {
@@ -401,30 +429,51 @@ sec4_slide_wrap.addEventListener("transitionend", () => {
   setTimeout(() => {
     sec4_slide_wrap.style.transition = ".6s ease";
   });
-  sec4_cnt = 0;
   transitionSec4 = true;
+  sec4_down = false;
+  sec4_cnt = 0;
 });
 
 sec4_slide_wrap.addEventListener("mousedown", ({ clientX }) => {
-  sec4_prevPoint = clientX;
-  sec4_cnt = 0;
+  if (!sec4_down) {
+    sec4_prevPoint = clientX;
+    sec4_cnt = 0;
+    sec4_down = true;
+  }
+});
+
+sec4_slide_wrap.addEventListener("mousemove", () => {
+  if (sec4_down) sec4_move = true;
 });
 
 sec4_slide_wrap.addEventListener("mouseup", ({ clientX }) => {
-  sec4_nextPoint = clientX;
-  let direction = sec4_nextPoint - sec4_prevPoint;
-  user_slide_Sec4(direction);
+  if (sec4_move) {
+    sec4_move = false;
+    sec4_nextPoint = clientX;
+    let direction = sec4_nextPoint - sec4_prevPoint;
+    user_slide_Sec4(direction);
+  }
 });
 
 sec4_slide_wrap.addEventListener("touchstart", ({ changedTouches }) => {
-  sec4_prevPoint = changedTouches[0].clientX;
-  sec4_cnt = 0;
+  if (!sec4_down) {
+    sec4_prevPoint = changedTouches[0].clientX;
+    sec4_cnt = 0;
+    sec4_down = true;
+  }
+});
+
+sec4_slide_wrap.addEventListener("touchmove", () => {
+  if (sec4_down) sec4_move = true;
 });
 
 sec4_slide_wrap.addEventListener("touchend", ({ changedTouches }) => {
-  sec4_nextPoint = changedTouches[0].clientX;
-  let direction = sec4_nextPoint - sec4_prevPoint;
-  user_slide_Sec4(direction);
+  if (sec4_move) {
+    sec4_move = false;
+    sec4_nextPoint = changedTouches[0].clientX;
+    let direction = sec4_nextPoint - sec4_prevPoint;
+    user_slide_Sec4(direction);
+  }
 });
 
 sec4_control_auto.addEventListener("click", () => {
@@ -442,11 +491,11 @@ sec4_control_auto.addEventListener("click", () => {
   }
 });
 
-for (let link of document.querySelectorAll(".sec4_slide a")) {
+document.querySelectorAll(".sec4_slide a").forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
   });
-}
+});
 
 function slide_Sec4() {
   transitionSec4 = false;

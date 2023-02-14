@@ -160,6 +160,8 @@ window.onresize = () => {
       });
     }
   }
+  sec4_down = false;
+  sec4_move = false;
 };
 
 window.onscroll = () => {

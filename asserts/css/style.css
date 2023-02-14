@@ -311,7 +311,6 @@ header {
 
 .banner_bottom a {
   flex: 1;
-  pointer-events: none;
   user-select: none;
   -webkit-user-select: none;
   -webkit-user-drag: none;
@@ -1042,10 +1041,6 @@ header {
   padding: 0 20px;
   user-select: none;
   -webkit-user-select: none;
-}
-
-.sec4_slide .img_wrap {
-  /* transition: 0.5s; */
 }
 
 .sec4_slide.sec4_slide6 .img_wrap {

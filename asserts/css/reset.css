@@ -20,6 +20,12 @@ a {
   color: inherit;
 }
 
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+}
+
 .container {
   padding: 0 30px;
 }
