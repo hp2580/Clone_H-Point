@@ -13,15 +13,14 @@ slide_wrap.prepend(b_clone_last);
 slide_wrap.style.transform = `translateX(-25%)`;
 setTimeout(() => {
   slide_wrap.style.transition = `.3s linear`;
+  document.querySelectorAll(".banner_bottom a").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+    });
+  });
   b_interval = setInterval(() => {
     autoPlay_Banner();
   }, 1000);
-});
-
-document.querySelectorAll(".banner_bottom a").forEach((link) => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-  });
 });
 
 slide_wrap.addEventListener("transitionend", () => {

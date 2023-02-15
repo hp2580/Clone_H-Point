@@ -1,19 +1,19 @@
-let nav_wrap = document.querySelector(".depth2_wrap");
-let nav = document.querySelector(".depth2");
-let btn_sides = document.querySelectorAll(".btn_side");
-let side_menu_wrap = document.querySelector(".side_menu_wrap");
-let s_depth2_lists = document.querySelectorAll(".s_depth2 > li");
-let s_depth2_titles = document.querySelectorAll(".s_depth2_title");
-let btn_quick = document.querySelector(".btn_quick");
-let sec1 = document.querySelector(".section1");
-let sec2 = document.querySelector(".section2");
-let goTop = document.querySelector(".goTop");
-let sec3_tags = document.querySelectorAll(".sec3_tags");
-let sec5_tags = document.querySelectorAll(".sec5_tags");
-let sec5_slide_wrap = document.querySelector(".sec5_depth1");
-let sec5_slide = document.querySelectorAll(".sec5_depth1 > li");
-let sec5_clone_first = sec5_slide_wrap.firstElementChild.cloneNode(true);
-let sec5_clone_last = sec5_slide_wrap.lastElementChild.cloneNode(true);
+const nav_wrap = document.querySelector(".depth2_wrap");
+const nav = document.querySelector(".depth2");
+const btn_sides = document.querySelectorAll(".btn_side");
+const side_menu_wrap = document.querySelector(".side_menu_wrap");
+const s_depth2_lists = document.querySelectorAll(".s_depth2 > li");
+const s_depth2_titles = document.querySelectorAll(".s_depth2_title");
+const btn_quick = document.querySelector(".btn_quick");
+const sec1 = document.querySelector(".section1");
+const sec2 = document.querySelector(".section2");
+const goTop = document.querySelector(".goTop");
+const sec3_tags = document.querySelectorAll(".sec3_tags");
+const sec5_tags = document.querySelectorAll(".sec5_tags");
+const sec5_slide_wrap = document.querySelector(".sec5_depth1");
+const sec5_slide = document.querySelectorAll(".sec5_depth1 > li");
+const sec5_clone_first = sec5_slide_wrap.firstElementChild.cloneNode(true);
+const sec5_clone_last = sec5_slide_wrap.lastElementChild.cloneNode(true);
 
 let upper768;
 let lower768;
@@ -53,6 +53,11 @@ window.onload = () => {
       .classList.add("active");
     setTimeout(() => {
       sec7_slide.style.transition = ".6s ease";
+      document.querySelectorAll(".sec7_slide a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+        });
+      });
       sec7_interval = setInterval(() => {
         sec7_autoplay = true;
         autoPlay_Sec7();
