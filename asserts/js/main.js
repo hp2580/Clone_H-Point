@@ -217,9 +217,6 @@ goTop.addEventListener("click", () => {
   document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-let sec3_index = 1;
-let sec3_index_user = 1;
-
 document.querySelectorAll(".sec3_tags").forEach((tag, idx) => {
   tag.addEventListener("click", () => {
     sec3_index_user = idx + 1;
